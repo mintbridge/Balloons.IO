@@ -4,10 +4,10 @@ extends layout
 block content
 	body.login_ldap
 		form(method='POST', action='/auth/ldap')
-			label
-				Username:
+			label Username:
 			input(name='username')
-			label
-				Password:
+			br
+			label Password:
 			input(name='password')
+			br
 			input(type='submit')
