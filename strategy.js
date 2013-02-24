@@ -5,7 +5,8 @@
 
 var passport = require('passport')
   , TwitterStrategy = require('passport-twitter').Strategy
-  , FacebookStrategy = require('passport-facebook').Strategy 
+  , FacebookStrategy = require('passport-facebook').Strategy
+  , LDAPStrategy = require('passport-ldap').Strategy
   , config = require('./config.json');
 
 /*
@@ -30,7 +31,7 @@ if(config.auth.twitter.consumerkey.length) {
       return done(null, profile);
     }
   ));
-} 
+}
 
 if(config.auth.facebook.clientid.length) {
   passport.use(new FacebookStrategy({
@@ -39,6 +40,14 @@ if(config.auth.facebook.clientid.length) {
       callbackURL: config.auth.facebook.callback
     },
     function(accessToken, refreshToken, profile, done) {
+      return done(null, profile);
+    }
+  ));
+}
+
+if(config.auth.ldap.server.url.length) {
+  passport.use(new LDAPStrategy(config.auth.ldap,
+    function(profile, done) {
       return done(null, profile);
     }
   ));

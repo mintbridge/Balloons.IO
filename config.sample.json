@@ -9,6 +9,11 @@
       "clientid" : "yourClientID",
       "clientsecret" : "yourClientSecret",
       "callback" : "http://127.0.0.1:6789/auth/facebook/callback"
+    },
+    "ldap": {
+      "server": {
+        "url" : "ldap://127.0.0.1:1389"
+      }
     }
   },
   "theme": {

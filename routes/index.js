@@ -32,7 +32,7 @@ app.get('/', function(req, res, next) {
 if(config.auth.twitter.consumerkey.length) {
   app.get('/auth/twitter', passport.authenticate('twitter'));
 
-  app.get('/auth/twitter/callback', 
+  app.get('/auth/twitter/callback',
     passport.authenticate('twitter', {
       successRedirect: '/',
       failureRedirect: '/'
@@ -43,10 +43,27 @@ if(config.auth.twitter.consumerkey.length) {
 if(config.auth.facebook.clientid.length) {
   app.get('/auth/facebook', passport.authenticate('facebook'));
 
-  app.get('/auth/facebook/callback', 
+  app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
       successRedirect: '/',
       failureRedirect: '/'
+    })
+  );
+}
+
+if(config.auth.ldap.server.url.length) {
+  app.get('/auth/ldap', function(req, res, next) {
+    if(req.isAuthenticated()){
+      res.redirect('/');
+    } else{
+      res.render('login_ldap');
+    }
+  });
+
+  app.post('/auth/ldap',
+    passport.authenticate('ldap', {
+      successRedirect: '/',
+      failureRedirect: '/auth/ldap'
     })
   );
 }
